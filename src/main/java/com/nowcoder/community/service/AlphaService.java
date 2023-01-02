@@ -1,6 +1,8 @@
 package com.nowcoder.community.service;
 
 import com.nowcoder.community.dao.AlphaDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
