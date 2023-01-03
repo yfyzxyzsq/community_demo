@@ -29,8 +29,8 @@ public class MailTests {
 
     @Test
     public void testSendText(){
-        mailClient.sendMail("2290957226@qq.com", "TEST", "ddd_coder011");
-        System.out.println("send email");
+        mailClient.sendMail("2934747169@qq.com", "TEST", "宝贝，爱你爱你爱你");
+//        System.out.println("send email");
     }
 
     @Test
