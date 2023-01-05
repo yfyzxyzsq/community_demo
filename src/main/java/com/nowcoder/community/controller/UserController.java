@@ -1,5 +1,6 @@
 package com.nowcoder.community.controller;
 
+import com.nowcoder.community.annotation.LoginRequired;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.utils.CommunityUtil;
@@ -49,11 +50,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @LoginRequired
     @RequestMapping(value = "/setting", method = RequestMethod.GET)
-    public String getSettingPage(){
+    public String getSettingPage() {
         return "/site/setting";
     }
 
+    @LoginRequired
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model) {
 
@@ -86,19 +89,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/header/{fileName}", method = RequestMethod.GET)
-    public void getHeader(@PathVariable("fileName") String fileName, HttpServletResponse response){
+    public void getHeader(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         fileName = uploadPath + "/" + fileName;
-        String suffix  = fileName.substring(fileName.lastIndexOf("."));
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
 
         response.setContentType("image/" + suffix);
 
-        try(
+        try (
                 FileInputStream fileInputStream = new FileInputStream(fileName);
-                ){
+        ) {
             ServletOutputStream outputStream = response.getOutputStream();
             byte[] buffer = new byte[1024];
             int b = 0;
-            while((b = fileInputStream.read(buffer)) != -1){
+            while ((b = fileInputStream.read(buffer)) != -1) {
                 outputStream.write(buffer);
             }
         } catch (IOException e) {
@@ -106,7 +109,6 @@ public class UserController {
         }
 
     }
-
 
 
 }
