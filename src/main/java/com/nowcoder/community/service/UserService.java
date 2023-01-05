@@ -6,6 +6,7 @@ import com.nowcoder.community.dao.UserMapper;
 import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.utils.CommunityUtil;
+import com.nowcoder.community.utils.HostHolder;
 import com.nowcoder.community.utils.MailClient;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class UserService {
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+
 
     public User findUserById(int userId) {
         return userMapper.selectById(userId);
@@ -171,6 +173,22 @@ public class UserService {
 
     public int updateHeaderUrl(int userId, String url){
         return userMapper.updateHeader(userId, url);
+    }
+
+    public Map<String, Object> updatePassword(int userId, String originPassword, String oldPassword, String newPassword){
+        Map<String, Object> map = new HashMap<>();
+
+        if(!(originPassword).equals(oldPassword)){
+            map.put("oldPasswordError", "原密码错误");
+            return map;
+        }
+        if(StringUtils.isBlank(newPassword)){
+            map.put("newPasswordError", "密码不能为空");
+            return map;
+        }
+
+        userMapper.updatePassword(userId, newPassword);
+        return map;
     }
 
 }

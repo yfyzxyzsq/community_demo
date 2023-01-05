@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @Description:user 相关
@@ -109,6 +110,25 @@ public class UserController {
         }
 
     }
+
+    @RequestMapping(value = "/newpwd", method = RequestMethod.POST)
+    public String updatePassword(Model model, String oldPassword, String newPassword){
+        User user = hostHolder.getUser();
+
+        oldPassword = CommunityUtil.md5(oldPassword + user.getSalt());
+        newPassword = CommunityUtil.md5(newPassword + user.getSalt());
+        Map<String, Object> map = userService.updatePassword(user.getId(), user.getPassword(), oldPassword, newPassword);
+        //不空说明修改未成功
+        if(!map.isEmpty()){
+            model.addAttribute("oldPasswordError", map.get("oldPasswordError"));
+            model.addAttribute("newPasswordError", map.get("newPasswordError"));
+            return "/site/setting";
+        }
+        model.addAttribute("success", "修改成功");
+        return "/site/setting";
+    }
+
+
 
 
 }
