@@ -21,4 +21,6 @@ public interface DiscussPostMapper {
     //如果只有一个参数，并且在<if>中使用，则必须取别名
     //目前没取别名但没报错
     int selectDiscussPostRows(int userId);
+
+    int insertDiscussPost(DiscussPost discussPost);
 }

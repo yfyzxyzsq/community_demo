@@ -104,5 +104,17 @@ public class MapperTests {
 
     }
 
+    @Test
+    public void testInsertDiscussPost(){
+        DiscussPost discussPost = new DiscussPost();
+        discussPost.setTitle("test");
+        discussPost.setUserId(11);
+        discussPost.setContent("aaaaaaaaaaa");
+        discussPost.setCreateTime(new Date());
+
+        int result = discussPostMapper.insertDiscussPost(discussPost);
+
+        System.out.println(result);
+    }
 
 }
