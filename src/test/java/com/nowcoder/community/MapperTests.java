@@ -1,13 +1,7 @@
 package com.nowcoder.community;
 
-import com.nowcoder.community.dao.CommentMapper;
-import com.nowcoder.community.dao.DiscussPostMapper;
-import com.nowcoder.community.dao.LoginTicketMapper;
-import com.nowcoder.community.dao.UserMapper;
-import com.nowcoder.community.entity.Comment;
-import com.nowcoder.community.entity.DiscussPost;
-import com.nowcoder.community.entity.LoginTicket;
-import com.nowcoder.community.entity.User;
+import com.nowcoder.community.dao.*;
+import com.nowcoder.community.entity.*;
 import com.nowcoder.community.utils.CommunityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +29,9 @@ public class MapperTests {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelect(){
@@ -135,6 +132,28 @@ public class MapperTests {
     public void testUpdateCommentCount(){
         int res = discussPostMapper.updateCommentCount(284, 52);
         System.out.println(res);
+    }
+
+    @Test
+    public void testSelectConversations(){
+//        List<Message> messages = messageMapper.selectConversations(111, 0, 20);
+//        messages.forEach(System.out::println);
+
+        int conversationCount = messageMapper.selectConversationCount(111);
+        System.out.println(conversationCount);
+
+        List<Message> letters = messageMapper.selectLetters("111_112", 0, 10);
+        letters.forEach(System.out::println);
+
+        int letterCount = messageMapper.selectLetterCount(111, "111_112");
+        System.out.println(letterCount);
+
+        int userUnreadCount = messageMapper.selectUnreadCount(111, null);
+        System.out.println("userUnreadCount" + userUnreadCount);
+
+        int unreadCount = messageMapper.selectUnreadCount(111, "111_131");
+        System.out.println("unreadCounnt: " + unreadCount);
+
     }
 
 }
