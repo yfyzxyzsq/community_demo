@@ -5,6 +5,7 @@ import com.nowcoder.community.entity.Page;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.MessageService;
 import com.nowcoder.community.service.UserService;
+import com.nowcoder.community.utils.CommunityUtil;
 import com.nowcoder.community.utils.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description:message 控制层组件
@@ -70,6 +69,18 @@ public class MessageController {
         return "/site/letter";
     }
 
+    private List<Integer> getUnreadIds(List<Message> messages){
+        List<Integer> ids = new ArrayList<>();
+        if(messages != null){
+            for(Message message : messages){
+                if(hostHolder.getUser().getId() == message.getToId() && message.getStatus() == 0){
+                    ids.add(message.getId());
+                }
+            }
+        }
+        return ids;
+    }
+
     @RequestMapping("/letter/detail/{conversationId}")
     public String getConversationDetail(@PathVariable("conversationId") String conversationId, Model model, Page page){
         User user = hostHolder.getUser();
@@ -79,6 +90,7 @@ public class MessageController {
         page.setLimit(5);
 
         List<Message> letterList = messageService.findLetters(conversationId, page.getOffset(), page.getLimit());
+
 
         Message m = letterList.get(0);
         int senderId = user.getId() == m.getFromId() ? m.getToId() : m.getFromId();
@@ -97,7 +109,32 @@ public class MessageController {
         }
 
         model.addAttribute("letters", letters);
+        List<Integer> unreadIds = getUnreadIds(letterList);
+        if(!unreadIds.isEmpty()){
+            messageService.updateStatus(unreadIds, 1);
+        }
+
 
         return "/site/letter-detail";
+    }
+
+    @RequestMapping(value = "/letter/send", method = RequestMethod.POST)
+    @ResponseBody
+    public String sendLetter(String toName, String content){
+        User user = hostHolder.getUser();
+        User target = userService.findUserByName(toName);
+        Message message = new Message();
+        message.setFromId(user.getId());
+        message.setToId(target.getId());
+        if(user.getId() < target.getId()){
+            message.setConversationId(user.getId() + "_" + target.getId());
+        }else {
+            message.setConversationId(target.getId() + "_" + user.getId());
+        }
+        message.setContent(content);
+        message.setCreateTime(new Date());
+
+        messageService.addMessage(message);
+        return CommunityUtil.getJSONString(0);
     }
 }

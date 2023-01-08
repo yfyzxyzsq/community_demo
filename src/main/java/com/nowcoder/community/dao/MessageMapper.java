@@ -29,5 +29,11 @@ public interface MessageMapper {
     //查询未读私信数量，采用动态Sql，未传入会话ID则查用户所有的未读数量，传入则查该会话的未读数量
     int selectUnreadCount(int userId, String conversationId);
 
+    //插入message
+    int insertMessage(Message message);
+
+    //更新状态
+    int updateStatus(List<Integer> ids, int status);
+
 }
 

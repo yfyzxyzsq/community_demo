@@ -191,4 +191,8 @@ public class UserService {
         return map;
     }
 
+    public User findUserByName(String name){
+        return userMapper.selectByName(name);
+    }
+
 }
