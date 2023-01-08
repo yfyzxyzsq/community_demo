@@ -41,3 +41,21 @@ Serializable              N           N        N            N        N
 #### 声明式事务(xml,annotation)
 
 #### 编程式事务(TransactionTemplate)
+
+### AOP的实现
+- AspectJ
+  - 语言级的实现，扩展了Java语言，定义了AOP语法
+  - 在编译期织入代码，有专门的编译器，用来生成遵守Java字节码规范的class文件
+
+- Spring AOP
+  - 纯Java实现，不需要专门的编译过程和特殊的类装载器
+  - 运行时通过代理的方式织入代码，只支持方法类型的连接点
+  - Spring支持对AspectJ的集成
+
+#### Spring AOP
+- JDK动态代理
+  - Java提供动态代理技术，在运行时创建接口的代理实例
+  - Spring AOP默认使用这种方式，在接口的代理实例中织入代码
+- CGLib动态代理
+  - 采用底层的字节码技术，在运行时创建子类代理实例
+  - 当目标对象不存在接口时，Spring AOP会采用此方式，在子类实例中织入代码
