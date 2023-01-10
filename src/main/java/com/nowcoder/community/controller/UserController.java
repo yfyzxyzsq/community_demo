@@ -1,7 +1,9 @@
 package com.nowcoder.community.controller;
 
 import com.nowcoder.community.annotation.LoginRequired;
+import com.nowcoder.community.constant.EntityTypeConstant;
 import com.nowcoder.community.entity.User;
+import com.nowcoder.community.service.FollowService;
 import com.nowcoder.community.service.LikeService;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.utils.CommunityUtil;
@@ -54,6 +56,9 @@ public class UserController {
 
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private FollowService followService;
 
     @LoginRequired
     @RequestMapping(value = "/setting", method = RequestMethod.GET)
@@ -143,6 +148,19 @@ public class UserController {
 
         int likeCount = likeService.findUserLikeCount(userId);
         model.addAttribute("likeCount", likeCount);
+
+        long followeeCount = followService.findFolloweeCount(userId, EntityTypeConstant.ENTITY_TYPE_USER);
+        model.addAttribute("followeeCount", followeeCount);
+
+        long followerCount = followService.findFollowerCount(EntityTypeConstant.ENTITY_TYPE_USER, userId);
+        model.addAttribute("followerCount", followerCount);
+
+        boolean followStatus = false;
+        if(hostHolder.getUser() != null){
+            followStatus = followService.findFollowStatus(hostHolder.getUser().getId(), EntityTypeConstant.ENTITY_TYPE_USER, userId);
+        }
+
+        model.addAttribute("followStatus", followStatus);
 
         return "/site/profile";
     }

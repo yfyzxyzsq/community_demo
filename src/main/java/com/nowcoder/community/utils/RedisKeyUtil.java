@@ -9,13 +9,25 @@ import com.nowcoder.community.constant.RedisAboutConstant;
  */
 public class RedisKeyUtil {
 
-    //like:entity:entityType:entityId的形式的key
+    //like:entity:entityType:entityIdd -> set(userId)
     public static String getEntityLikeKey(int entityType, int entityId){
         return RedisAboutConstant.PREFIX_ENTITY_LIKE + RedisAboutConstant.SPLIT + entityType + RedisAboutConstant.SPLIT + entityId;
     }
 
-    //like:user:userId
+    //like:user:userId -> int
     public static String getUserLikeKey(int userId){
         return RedisAboutConstant.PREFIX_USER_LIKE + RedisAboutConstant.SPLIT + userId;
+    }
+
+    //某个实体的关注者
+    //follower:entityType:entityId -> zset(userId, now)
+    public static String getFollowerKey(int entityType, int entityId){
+        return RedisAboutConstant.PREFIX_FOLLOWER + RedisAboutConstant.SPLIT + entityType + RedisAboutConstant.SPLIT + entityId;
+    }
+
+    //某个用户关注的对象
+    //followee:userId:entityType -> zset(entityId, now)
+    public static String getFolloweeKey(int userId, int entityType){
+        return RedisAboutConstant.PREFIX_FOLLOWEE + RedisAboutConstant.SPLIT + userId + RedisAboutConstant.SPLIT + entityType;
     }
 }

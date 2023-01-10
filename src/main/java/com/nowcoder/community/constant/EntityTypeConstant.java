@@ -19,5 +19,10 @@ public final class EntityTypeConstant {
      */
     public static final int ENTITY_TYPE_COMMENT = 2;//todo 具体值根据实际情况分析，数据库未给出
 
+    /**
+     *@Description:用户
+     */
+    public static final int ENTITY_TYPE_USER = 3;
+
     private EntityTypeConstant(){}
 }

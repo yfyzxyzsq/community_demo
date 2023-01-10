@@ -13,5 +13,9 @@ public final class RedisAboutConstant {
 
     public static final String PREFIX_USER_LIKE = "like:user";
 
+    public static final String PREFIX_FOLLOWEE = "followee";
+
+    public static final String PREFIX_FOLLOWER = "follower";
+
     private RedisAboutConstant(){}
 }
