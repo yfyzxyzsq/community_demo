@@ -5,7 +5,9 @@ package com.nowcoder.community.constant;
  * @Author:DDD_coder
  * @Date:2023/1/5 16:56
  */
-public class SensitiveReplacement {
+public final class SensitiveReplacement {
 
     public static final String REPLACEMENT = "***";
+
+    private SensitiveReplacement(){}
 }

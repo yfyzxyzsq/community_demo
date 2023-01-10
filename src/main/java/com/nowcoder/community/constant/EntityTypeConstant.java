@@ -6,7 +6,7 @@ package com.nowcoder.community.constant;
  * @Date:2023/1/6 15:41
  */
 
-public class EntityTypeConstant {
+public final class EntityTypeConstant {
 
     /**
      *@Description:帖子
