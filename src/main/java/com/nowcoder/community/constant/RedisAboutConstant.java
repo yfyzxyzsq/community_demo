@@ -11,5 +11,7 @@ public final class RedisAboutConstant {
 
     public static final String PREFIX_ENTITY_LIKE = "like:entity";
 
+    public static final String PREFIX_USER_LIKE = "like:user";
+
     private RedisAboutConstant(){}
 }

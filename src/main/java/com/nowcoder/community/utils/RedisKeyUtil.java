@@ -13,4 +13,9 @@ public class RedisKeyUtil {
     public static String getEntityLikeKey(int entityType, int entityId){
         return RedisAboutConstant.PREFIX_ENTITY_LIKE + RedisAboutConstant.SPLIT + entityType + RedisAboutConstant.SPLIT + entityId;
     }
+
+    //like:user:userId
+    public static String getUserLikeKey(int userId){
+        return RedisAboutConstant.PREFIX_USER_LIKE + RedisAboutConstant.SPLIT + userId;
+    }
 }
