@@ -51,7 +51,7 @@ public class HomeController {
                 int userId = discussPost.getUserId();
                 User user = userService.findUserById(userId);
                 map.put("user", user);
-                //首页帖子列表的点赞数量
+                //首页帖子
                 long likeCount = likeService.findEntityLikeCount(discussPost.getType(), discussPost.getId());
                 map.put("likeCount", likeCount);
 

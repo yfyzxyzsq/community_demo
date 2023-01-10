@@ -17,5 +17,11 @@ public final class RedisAboutConstant {
 
     public static final String PREFIX_FOLLOWER = "follower";
 
+    public static final String PREFIX_KAPTCHA = "kaptcha";
+
+    public static final String PREFIX_TICKET = "ticket";
+
+    public static final String PREFIX_USER = "user";
+
     private RedisAboutConstant(){}
 }

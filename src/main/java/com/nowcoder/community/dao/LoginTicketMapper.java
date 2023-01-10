@@ -9,6 +9,8 @@ import sun.security.krb5.internal.Ticket;
  * @Author:DDD_coder
  * @Date:2023/1/3 21:31
  */
+
+@Deprecated //不推荐使用
 @Mapper
 public interface LoginTicketMapper {
 

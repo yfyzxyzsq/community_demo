@@ -30,4 +30,19 @@ public class RedisKeyUtil {
     public static String getFolloweeKey(int userId, int entityType){
         return RedisAboutConstant.PREFIX_FOLLOWEE + RedisAboutConstant.SPLIT + userId + RedisAboutConstant.SPLIT + entityType;
     }
+
+    //验证码的key
+    public static String getKaptchaKey(String owner){
+        return RedisAboutConstant.PREFIX_KAPTCHA + RedisAboutConstant.SPLIT + owner;
+    }
+
+    //登录凭证
+    public static String getTicketKey(String ticket){
+        return RedisAboutConstant.PREFIX_TICKET + RedisAboutConstant.SPLIT + ticket;
+    }
+
+    //用户
+    public static String getUserkey(int userId){
+        return RedisAboutConstant.PREFIX_USER + RedisAboutConstant.SPLIT + userId;
+    }
 }

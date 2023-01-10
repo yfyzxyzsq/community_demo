@@ -31,7 +31,10 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
     private UserMapper userMapper;
 
     @Autowired
-    private LoginTicketMapper loginTicketMapper;
+    private UserService userService;
+
+//    @Autowired
+//    private LoginTicketMapper loginTicketMapper;
 
     /**
      *com.nowcoder.community.controller.interceptor.LoginTicketInterceptor.preHandle();
@@ -48,7 +51,8 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
         String ticket = CookieUtil.getValue(request, "ticket");
 
         if(ticket != null){
-            LoginTicket loginTicket = loginTicketMapper.selectByTicket(ticket);
+//            LoginTicket loginTicket = loginTicketMapper.selectByTicket(ticket);
+            LoginTicket loginTicket = userService.findLoginTicket(ticket);
             if(loginTicket != null && loginTicket.getStatus() == 0 && loginTicket.getExpired().after(new Date())){
                 User user = userMapper.selectById(loginTicket.getUserId());
                 hostHolder.setUser(user);

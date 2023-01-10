@@ -20,16 +20,16 @@ import javax.annotation.PreDestroy;
 public class AlphaService {
 
     public AlphaService(){
-        System.out.println("实例化AlphaService");
+//        System.out.println("实例化AlphaService");
     }
 
-    @PostConstruct //实例化之后
-    public void init(){
-        System.out.println("初始化AlphaService");
-    }
-
-    @PreDestroy  //销毁之前
-    public void destory(){
-        System.out.println("销毁AlphaService");
-    }
+//    @PostConstruct //实例化之后
+//    public void init(){
+//        System.out.println("初始化AlphaService");
+//    }
+//
+//    @PreDestroy  //销毁之前
+//    public void destory(){
+//        System.out.println("销毁AlphaService");
+//    }
 }
