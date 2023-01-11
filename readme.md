@@ -61,3 +61,5 @@ Serializable              N           N        N            N        N
   - 当目标对象不存在接口时，Spring AOP会采用此方式，在子类实例中织入代码
 
 ### Redis
+
+### 阻塞队列

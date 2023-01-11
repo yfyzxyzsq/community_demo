@@ -33,6 +33,9 @@ public class ServiceLogAspect {
     @Before("pointcut()")
     public void before(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if(attributes == null){
+            return; //如果attributes为空，那么这次对service的调用是由Consumer发起的，而不是由Controller发起的
+        }
         HttpServletRequest request = attributes.getRequest();
         String remoteUser = request.getRemoteHost();
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
