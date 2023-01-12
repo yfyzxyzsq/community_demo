@@ -223,4 +223,42 @@ public class MessageController {
         return "/site/notice";
     }
 
+    @RequestMapping(value = "/notice/detail/{topic}", method = RequestMethod.GET)
+    public String getNoticeDetail(Model model, @PathVariable("topic") String topic, Page page){
+        User user = hostHolder.getUser();
+
+        page.setLimit(5);
+        page.setRows(messageService.findNoticeCount(user.getId(), topic));
+        page.setPath("/notice/detail/" + topic);
+
+        List<Message> noticeList = messageService.findNotices(user.getId(), topic, page.getOffset(), page.getLimit());
+
+        List<Map<String, Object>> notices = new ArrayList<>();
+
+        if(noticeList != null){
+            for(Message notice : noticeList){
+                Map<String, Object> map = new HashMap<>();
+                map.put("notice", notice);
+                String content = HtmlUtils.htmlUnescape(notice.getContent());
+                Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+                map.put("user", userService.findUserById((Integer) data.get("userId")));
+                map.put("entityType", data.get("entityType"));
+                map.put("entityId", data.get("entityId"));
+                map.put("postId", data.get("postId"));
+
+                map.put("fromUser", userService.findUserById(notice.getFromId()));
+                notices.add(map);
+            }
+        }
+        model.addAttribute("notices", notices);
+
+        //设置已读
+        List<Integer> ids = getUnreadIds(noticeList);
+        if(!ids.isEmpty()){
+            messageService.updateStatus(ids, 1);
+        }
+
+        return "/site/notice-detail";
+    }
+
 }

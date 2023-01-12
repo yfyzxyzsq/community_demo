@@ -58,10 +58,10 @@ public class CommentController {
                 .setEntityId(comment.getEntityId())
                 .setData("postId", discussPostId);
 
-        if(comment.getEntityId() == EntityTypeConstant.ENTITY_TYPE_POST){
+        if(comment.getEntityType() == EntityTypeConstant.ENTITY_TYPE_POST){  //之前用id喝type比较，本来应该获取type的
             DiscussPost post = discussPostService.findDiscussPostById(comment.getEntityId());
             event.setEntityUserId(post.getUserId());
-        }else if(comment.getEntityId() == EntityTypeConstant.ENTITY_TYPE_COMMENT) {
+        }else if(comment.getEntityType() == EntityTypeConstant.ENTITY_TYPE_COMMENT) {
             Comment target = commentService.findCommentById(comment.getEntityId());
             event.setEntityUserId(target.getUserId());
         }

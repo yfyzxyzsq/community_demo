@@ -43,7 +43,7 @@ public class EventConsumer {
 
         Message message = new Message();
         message.setFromId(TopicConstant.SYSTEM_USER_ID);
-        message.setToId(event.getEntityId());
+        message.setToId(event.getEntityUserId());  //之前获取的id错误，设置为了entity的id，导致系统消息显示出现bug
         message.setConversationId(event.getTopic());
         message.setCreateTime(new Date());
 

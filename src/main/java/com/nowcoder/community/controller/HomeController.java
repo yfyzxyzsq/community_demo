@@ -5,6 +5,7 @@ import com.nowcoder.community.entity.Page;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.DiscussPostService;
 import com.nowcoder.community.service.LikeService;
+import com.nowcoder.community.service.MessageService;
 import com.nowcoder.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,9 @@ public class HomeController {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private MessageService messageService;
+
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String getIndexPage(Model model, Page page){
         //方法调用前，SpringMVC会自动初始化model和page，并将page注入到model
@@ -44,7 +48,7 @@ public class HomeController {
 
         List<DiscussPost> list = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit());
         List<Map<String, Object>> discussPosts = new ArrayList<>();
-        if(discussPosts != null) {
+        if(list != null) {
             for (DiscussPost discussPost : list) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("post", discussPost);
@@ -58,6 +62,8 @@ public class HomeController {
                 discussPosts.add(map);
             }
             model.addAttribute("discussPosts", discussPosts);
+
+//            messageService.findUnreadNoticeCount()
         }
         return "/index";
     }
