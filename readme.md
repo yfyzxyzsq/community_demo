@@ -63,3 +63,5 @@ Serializable              N           N        N            N        N
 ### Redis
 
 ### 阻塞队列
+
+### Elasticsearch
