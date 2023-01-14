@@ -150,8 +150,8 @@ public class MessageController {
 
         //查询评论类通知
         Message message = messageService.findLatestNotice(user.getId(), TopicConstant.TOPIC_COMMENT);
-        Map<String, Object> messageVO = new HashMap<>();
         if(message != null){
+            Map<String, Object> messageVO = new HashMap<>();
 //            messageVO = new HashMap<>();
             messageVO.put("message", message);
 
@@ -168,13 +168,13 @@ public class MessageController {
 
             int unreadCount = messageService.findUnreadNoticeCount(user.getId(), TopicConstant.TOPIC_COMMENT);
             messageVO.put("unreadCount", unreadCount);
+            model.addAttribute("commentNotice", messageVO);
         }
-        model.addAttribute("commentNotice", messageVO);
 
         //查询点赞类通知
         message = messageService.findLatestNotice(user.getId(), TopicConstant.TOPIC_LIKE);
-        messageVO = new HashMap<>();
         if(message != null){
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -190,13 +190,13 @@ public class MessageController {
 
             int unreadCount = messageService.findUnreadNoticeCount(user.getId(), TopicConstant.TOPIC_LIKE);
             messageVO.put("unreadCount", unreadCount);
+            model.addAttribute("likeNotice", messageVO);
         }
-        model.addAttribute("likeNotice", messageVO);
 
         //查询关注类通知
         message = messageService.findLatestNotice(user.getId(), TopicConstant.TOPIC_FOLLOW);
-        messageVO = new HashMap<>();
         if(message != null){
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -211,8 +211,8 @@ public class MessageController {
 
             int unreadCount = messageService.findUnreadNoticeCount(user.getId(), TopicConstant.TOPIC_FOLLOW);
             messageVO.put("unreadCount", unreadCount);
+            model.addAttribute("followNotice", messageVO);
         }
-        model.addAttribute("followNotice", messageVO);
 
         //查询未读数量
         int letterUnreadCount = messageService.findUnreadCount(user.getId(), null);

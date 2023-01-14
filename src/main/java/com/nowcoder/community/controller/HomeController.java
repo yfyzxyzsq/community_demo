@@ -8,6 +8,7 @@ import com.nowcoder.community.service.LikeService;
 import com.nowcoder.community.service.MessageService;
 import com.nowcoder.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,6 +72,11 @@ public class HomeController {
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String getErrorPage(){
         return "/error/500";
+    }
+
+    @RequestMapping(value = "/denied", method = RequestMethod.GET)
+    public String getDeniedPage(){
+        return "/error/404";
     }
 
 }
