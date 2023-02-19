@@ -1,5 +1,5 @@
 package com.nowcoder.community.controller.interceptor;
-import com.nowcoder.community.dao.LoginTicketMapper;
+
 import com.nowcoder.community.dao.UserMapper;
 import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
@@ -7,7 +7,6 @@ import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.utils.CookieUtil;
 import com.nowcoder.community.utils.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +26,6 @@ import java.util.Date;
  */
 @Component
 public class LoginTicketInterceptor implements HandlerInterceptor {
-
 
     @Autowired
     private HostHolder hostHolder;

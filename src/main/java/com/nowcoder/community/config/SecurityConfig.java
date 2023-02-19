@@ -36,12 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().antMatchers(
                 "/user/setting",
                 "/user/upload",
-                "/comment/add",
+                "/comment/add/**",
                 "/discuss/add",
                 "/follow",
                 "/unfollow",
-                "/followers/**",
-                "/followees/**",
                 "/like",
                 "/letter/**",
                 "/notice/**"
@@ -62,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         if ("XMLHttpRequest".equals(xRequestedWith)) {
                             response.setContentType("application/plain;charset=utf-8");
                             PrintWriter writer = response.getWriter();
-                            writer.write(CommunityUtil.getJSONString(403, "您还没有登录！"));
+                            writer.write(CommunityUtil.getJSONString(403, "您还没有登录！."));
                         } else {
                             response.sendRedirect(request.getContextPath() + "/login");
                         }
